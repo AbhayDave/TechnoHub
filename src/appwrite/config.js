@@ -91,9 +91,10 @@ export class Service {
     }
   }
 
-  async getPostsByUser(userId, queries = [Query.equal("status", "active")]) {
+  async getPostsByUser(userId) {
     try {
-      console.log(userId, "Inside getPostsByUser Function");
+      // console.log(userId, "Inside getPostsByUser Function");
+      const queries = [];
       const userQuery = Query.equal("userId", userId);
       queries.push(userQuery);
       return await this.databases.listDocuments(
@@ -103,6 +104,25 @@ export class Service {
       );
     } catch (error) {
       console.log("Appwrite service :: getPostsByUser :: error", error);
+      return false;
+    }
+  }
+
+  async searchBlog(keyword, userId) {
+    try {
+      const query = [];
+      // query.push(Query.or([Query.search("title", keyword), Query.search("content", keyword)]));
+      query.push(Query.search("title", keyword), Query.equal("userId", userId));
+
+      const data = await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        query
+      );
+
+      console.log(data);
+    } catch (error) {
+      console.log("Appwrite serive :: searchBlog :: error", error);
       return false;
     }
   }

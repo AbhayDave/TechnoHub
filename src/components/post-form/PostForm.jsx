@@ -24,7 +24,7 @@ export default function PostForm({ post }) {
       const file = data.featuredImage[0]
         ? await appwriteService.uploadFile(data.featuredImage[0])
         : null;
-      console.log(file);
+      // console.log(file);
       if (!file) {
         appwriteService.deleteFile(post.featuredImage);
       }
@@ -42,7 +42,7 @@ export default function PostForm({ post }) {
       const file = await appwriteService.uploadFile(data.featuredImage[0]);
 
       if (file) {
-        console.log(userData);
+        // console.log(userData);
         const fileId = file.$id;
         data.featuredImage = fileId;
         const dbPost = await appwriteService.createPost({
