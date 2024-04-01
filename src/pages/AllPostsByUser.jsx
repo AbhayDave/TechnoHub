@@ -2,23 +2,18 @@ import { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components";
 import { useSelector } from "react-redux";
-import authService from "../appwrite/auth";
-import SearchBox from "../components/SearchBox";
 
 function AllPostsByUser() {
-  // const userData = useSelector((state) => state.auth.userData);
-  // const [userData, setUserData] = useState({});
+  const userData = useSelector((state) => state.auth.userData);
+
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userData = await authService.getCurrentUser();
-        if (userData) {
-          const posts = await appwriteService.getPostsByUser(userData.$id);
-          if (posts) {
-            setPosts(posts.documents);
-          }
+        const posts = await appwriteService.getPostsByUser(userData.$id);
+        if (posts) {
+          setPosts(posts.documents);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
