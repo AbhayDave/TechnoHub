@@ -4,6 +4,8 @@ import appwriteService from "../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
 import { useSelector } from "react-redux";
+import PostDisplay from "../components/Post/PostDisplay";
+
 
 export default function Post() {
   const { slug } = useParams();
@@ -61,10 +63,13 @@ export default function Post() {
         <div className="w-full mb-6">
           <h1 className="text-2xl font-bold">{post.title}</h1>
         </div>
-        <div className="browser-css">
+        <PostDisplay content={post.content ? post.content : ""} />
+        {/* <div className="browser-css">
           {parse(post.content ? post.content : "")}
-        </div>
+        </div> */}
       </Container>
     </div>
   ) : null;
 }
+
+// post.content ? post.content : "";

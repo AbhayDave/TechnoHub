@@ -18,7 +18,21 @@ function AllPosts() {
 
   }, []);
 
-
+  if(!posts) {
+    return (
+      <div className="w-full py-8 mt-4 text-center">
+        <Container>
+          <div className="flex flex-wrap">
+            <div className="p-2 w-full">
+              <h1 className="text-2xl font-bold hover:text-gray-500">
+                No Posts to Display
+              </h1>
+            </div>
+          </div>
+        </Container>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full py-8">

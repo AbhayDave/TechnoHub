@@ -16,6 +16,8 @@ export default function PostForm({ post }) {
       },
     });
 
+    console.log(post?.content);
+
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
 
@@ -25,7 +27,8 @@ export default function PostForm({ post }) {
         ? await appwriteService.uploadFile(data.featuredImage[0])
         : null;
       // console.log(file);
-      if (!file) {
+
+      if (file) {
         appwriteService.deleteFile(post.featuredImage);
       }
 
